@@ -7,13 +7,13 @@ class PokemonSearchForm extends Component {
             search: " "
         }
     }
-    handleChange = (e) =>{
+    handleSubmit = (e) =>{
         e.preventDefault();
         this.props.searchPokemon(this.state);
 
     }
 
-    handleSubmit = (e) => {
+    handleChange = (e) => {
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value

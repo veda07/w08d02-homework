@@ -9,31 +9,30 @@ class PokemonContainer extends Component {
             pokemon: []
         }
     }
-    componentDidMount(){
-        this.searchPokemon({search: ""})
-    }
+    // componentDidMount(){
+    //     this.searchPokemon({search: ""})
+    // }
     searchPokemon = async (formData) =>{
-        console.log(formData)
-        const searchUrl = (`https://pokeapi.co/api/v2/pokemon?search=${formData.search}`)
+       
+        const searchUrl = `https://pokeapi.co/api/v2/pokemon/${formData.search}`
         const foundPokemon = await fetch(searchUrl);
         console.log(foundPokemon)
         const parsedResult = await foundPokemon.json();
         this.setState({
-            pokemon: parsedResult.foundPokemon
+            pokemon: [...this.state.pokemon, parsedResult]
         })
         
     }
-    showPokemon = () =>{
-        return this.state.pokemon.map((pokemon)=>
-        <li key ={pokemon.url}>
-        <h1>{pokemon.name}</h1>
-        <h2>Species: {pokemon.species} Ability: {pokemon.ability} Item: {pokemon.item}</h2>
-        
-        </li>
-        )
-    }
+
     render(){
-        const pokemonList = this.showPokemon; 
+        const pokemonList = this.state.pokemon.map((poke) => {
+            return (
+            <li key ={poke.url}>
+                <h1>{poke.name}</h1>
+                <h2>Species: {poke.species.name} Weight: {poke.weight} Height {poke.height} </h2>
+            </li>
+            )
+        })
         return(
             <div>
                 <h1>Eyes On The Prize</h1>
